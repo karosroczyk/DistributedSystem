@@ -7,19 +7,19 @@ namespace Promotor
 {
     public class SocketListener
     {
+        public static IPAddress localIpAddress = IPAddress.Parse("127.0.0.4");
+        public static byte[] data_plik = new byte[160];
         public static int Main(String[] args)
         {
-            StartPromotor();
+            ReceiveFile(localIpAddress);
             return 0;
         }
 
-        public static void StartPromotor()
+        public static void ReceiveFile(IPAddress ipAddress)
         {
             try
             {
-                IPAddress ipAddress = IPAddress.Parse("127.0.0.2");
                 IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
-
                 try
                 {
                     Socket listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
@@ -30,15 +30,14 @@ namespace Promotor
                     Socket handler = listener.Accept();
 
                     // File receiver
-                    string data_plik = null;
-                    byte[] buffer = new byte[160];
-
                     try
                     {
-                        int received = handler.Receive(buffer);
-                        data_plik += Encoding.ASCII.GetString(buffer, 0, received);
+                        Console.WriteLine("Odbiór pliku z systemu Wirtualnego Dziekanatu\n");
+                        handler.Receive(data_plik);
                         Console.WriteLine("File received \nSending result \n");
-                        handler.Send(Encoding.ASCII.GetBytes("Result: 5"));
+                        Random rnd = new Random();
+                        int ocena = rnd.Next(2, 5);
+                        handler.Send(Encoding.ASCII.GetBytes("Result: " + ocena.ToString()));
                     }
                     catch (Exception ex)
                     {
@@ -46,7 +45,6 @@ namespace Promotor
                         throw ex;
                     }
 
-                    // Echo sender
                     handler.Shutdown(SocketShutdown.Both);
                     handler.Close();
                 }

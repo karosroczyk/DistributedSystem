@@ -7,19 +7,18 @@ namespace System_antyplagiatowy
 {
     public class SystemAntyplagiatowy
     {
+        public static IPAddress localIpAddress = IPAddress.Parse("127.0.0.3");
+        public static byte[] data_plik = new byte[160];
         public static int Main(String[] args)
         {
-            StartSystemAntyplagiatowy();
+            ReceiveFile(localIpAddress);
             return 0;
         }
-        public static void StartSystemAntyplagiatowy()
+        public static void ReceiveFile(IPAddress ipAddress)
         {
             try
             {
-                IPHostEntry host = Dns.GetHostEntry("localhost");
-                IPAddress ipAddress = host.AddressList[1];
                 IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
-
                 try
                 {
                     Socket listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
@@ -30,13 +29,10 @@ namespace System_antyplagiatowy
                     Socket handler = listener.Accept();
 
                     // File receiver
-                    string data_plik = null;
-                    byte[] buffer = new byte[160];
-
                     try
                     {
-                        int received = handler.Receive(buffer);
-                        data_plik += Encoding.ASCII.GetString(buffer, 0, received);
+                        Console.WriteLine("Odbiór pliku z systemu Wirtualnego Dziekanatu\n");
+                        handler.Receive(data_plik);
                         Console.WriteLine("File received \nSending result \n");
                         handler.Send(Encoding.ASCII.GetBytes("Result: ok"));
                     }
@@ -46,7 +42,6 @@ namespace System_antyplagiatowy
                         Console.WriteLine(ex.ToString());
                     }
 
-                    // Echo sender
                     handler.Shutdown(SocketShutdown.Both);
                     handler.Close();
                 }

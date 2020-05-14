@@ -2,27 +2,66 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.IO;
 
 namespace User
 {
     class Program
     {
-        public static IPHostEntry host = Dns.GetHostEntry("localhost");
-        public static string fileName = "C:\\Users\\Lenovo\\Desktop\\Magisterka\\Systemy rozproszone\\Systemy_rozproszone\\plik.txt";
+        public static IPAddress localIpAddress = IPAddress.Parse("127.0.0.1");
+        public static IPAddress WDIpAddress = IPAddress.Parse("127.0.0.2");
+        public static string fileName = Path.GetFullPath("plik.txt");
         public static int Main(String[] args)
         {
             Console.WriteLine("Wysyłanie pliku do systemu Wirtualnego Dziekanatu");
-            int portIP = 0;
-            string data = StartClient(portIP);
-
+            SendMessageWithFile(WDIpAddress);
+            ReceiveEcho(localIpAddress, 11000);
+            ReceiveEcho(localIpAddress, 11001);
             return 0;
         }
-        public static string StartClient(int ipNr)
+        public static void ReceiveEcho(IPAddress ipAddress, int port)
         {
-            string data = null;
             try
             {
-                IPAddress ipAddress = host.AddressList[ipNr];
+                IPEndPoint localEndPoint = new IPEndPoint(ipAddress, port);
+                try
+                {
+                    Socket listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                    listener.Bind(localEndPoint);
+                    listener.Listen(10);
+                    Socket handler = listener.Accept();
+
+                    // File receiver
+                    try
+                    {
+                        byte[] buffer = new byte[160];
+                        int received = handler.Receive(buffer);
+                        string data_plik = Encoding.ASCII.GetString(buffer, 0, received);
+                        Console.WriteLine(data_plik);
+                    }
+                    catch (Exception ex)
+                    {
+                        handler.Send(Encoding.ASCII.GetBytes("Result: bad"));
+                        Console.WriteLine(ex.ToString());
+                    }
+
+                    handler.Shutdown(SocketShutdown.Both);
+                    handler.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+        public static void SendMessageWithFile(IPAddress ipAddress)
+        {
+            try
+            {
                 IPEndPoint remoteEndPoint = new IPEndPoint(ipAddress, 11000);
                 try
                 {
@@ -36,7 +75,7 @@ namespace User
                     // Echo receiver 
                     byte[] bytes = new byte[1024];
                     int bytesRec = sender.Receive(bytes);
-                    data = Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                    string data = Encoding.ASCII.GetString(bytes, 0, bytesRec);
                     Console.WriteLine(data + "\n");
 
                     sender.Shutdown(SocketShutdown.Both);
@@ -56,7 +95,6 @@ namespace User
             {
                 Console.WriteLine(e.ToString());
             }
-            return data;
         }
     }
 }
