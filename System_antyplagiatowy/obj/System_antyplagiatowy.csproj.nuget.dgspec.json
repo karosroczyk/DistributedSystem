@@ -1,24 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lenovo\\Desktop\\Magisterka\\Systemy rozproszone\\Systemy_rozproszone\\System_antyplagiatowy\\System_antyplagiatowy.csproj": {}
+    "C:\\Users\\patry\\OneDrive\\Pulpit\\rozproszone\\Systemy_rozproszone\\System_antyplagiatowy\\System_antyplagiatowy.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lenovo\\Desktop\\Magisterka\\Systemy rozproszone\\Systemy_rozproszone\\System_antyplagiatowy\\System_antyplagiatowy.csproj": {
+    "C:\\Users\\patry\\OneDrive\\Pulpit\\rozproszone\\Systemy_rozproszone\\System_antyplagiatowy\\System_antyplagiatowy.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\Magisterka\\Systemy rozproszone\\Systemy_rozproszone\\System_antyplagiatowy\\System_antyplagiatowy.csproj",
+        "projectUniqueName": "C:\\Users\\patry\\OneDrive\\Pulpit\\rozproszone\\Systemy_rozproszone\\System_antyplagiatowy\\System_antyplagiatowy.csproj",
         "projectName": "System_antyplagiatowy",
-        "projectPath": "C:\\Users\\Lenovo\\Desktop\\Magisterka\\Systemy rozproszone\\Systemy_rozproszone\\System_antyplagiatowy\\System_antyplagiatowy.csproj",
-        "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lenovo\\Desktop\\Magisterka\\Systemy rozproszone\\Systemy_rozproszone\\System_antyplagiatowy\\obj\\",
+        "projectPath": "C:\\Users\\patry\\OneDrive\\Pulpit\\rozproszone\\Systemy_rozproszone\\System_antyplagiatowy\\System_antyplagiatowy.csproj",
+        "packagesPath": "C:\\Users\\patry\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\patry\\OneDrive\\Pulpit\\rozproszone\\Systemy_rozproszone\\System_antyplagiatowy\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\ProgramData\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\patry\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
@@ -40,14 +42,6 @@
       },
       "frameworks": {
         "netcoreapp2.2": {
-          "dependencies": {
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.2.0, )",
-              "autoReferenced": true
-            }
-          },
           "imports": [
             "net461"
           ],

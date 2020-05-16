@@ -1,0 +1,10 @@
+C:\Users\patry\OneDrive\Pulpit\rozproszone\Systemy_rozproszone\Apka\AplikacjaOkienkowa\obj\Debug\AplikacjaOkienkowa.csprojAssemblyReference.cache
+C:\Users\patry\OneDrive\Pulpit\rozproszone\Systemy_rozproszone\Apka\AplikacjaOkienkowa\obj\Debug\AplikacjaOkienkowa.Form1.resources
+C:\Users\patry\OneDrive\Pulpit\rozproszone\Systemy_rozproszone\Apka\AplikacjaOkienkowa\obj\Debug\AplikacjaOkienkowa.Properties.Resources.resources
+C:\Users\patry\OneDrive\Pulpit\rozproszone\Systemy_rozproszone\Apka\AplikacjaOkienkowa\obj\Debug\AplikacjaOkienkowa.csproj.GenerateResource.cache
+C:\Users\patry\OneDrive\Pulpit\rozproszone\Systemy_rozproszone\Apka\AplikacjaOkienkowa\obj\Debug\AplikacjaOkienkowa.csproj.CoreCompileInputs.cache
+C:\Users\patry\OneDrive\Pulpit\rozproszone\Systemy_rozproszone\Apka\AplikacjaOkienkowa\bin\Debug\AplikacjaOkienkowa.exe.config
+C:\Users\patry\OneDrive\Pulpit\rozproszone\Systemy_rozproszone\Apka\AplikacjaOkienkowa\bin\Debug\AplikacjaOkienkowa.exe
+C:\Users\patry\OneDrive\Pulpit\rozproszone\Systemy_rozproszone\Apka\AplikacjaOkienkowa\bin\Debug\AplikacjaOkienkowa.pdb
+C:\Users\patry\OneDrive\Pulpit\rozproszone\Systemy_rozproszone\Apka\AplikacjaOkienkowa\obj\Debug\AplikacjaOkienkowa.exe
+C:\Users\patry\OneDrive\Pulpit\rozproszone\Systemy_rozproszone\Apka\AplikacjaOkienkowa\obj\Debug\AplikacjaOkienkowa.pdb
