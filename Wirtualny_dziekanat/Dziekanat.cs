@@ -11,42 +11,43 @@ namespace Wirtualny_dziekanat
         public static IPAddress UserIpAddress = IPAddress.Parse("127.0.0.1");
         public static IPAddress SystemAntyplagiatowyIpAddress = IPAddress.Parse("127.0.0.3");
         public static IPAddress PromotorIpAddress = IPAddress.Parse("127.0.0.4");
+        public static IPEndPoint localEndPoint = new IPEndPoint(localIpAddress, 11000);
+        public static Socket listener = new Socket(localIpAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         public static byte[] data_plik = new byte[160];
         public static int Main(String[] args)
         {
-            bool result = ReceiveFile(localIpAddress);
+            listener.Bind(localEndPoint);
+            listener.Listen(10);
 
-            if (result)
+            for (int i = 0; i < 10; i++)
             {
-                Console.WriteLine("Wysyłanie pliku do systemu antyplagiatowego");
-                //string data_ap = ("Informacja zwrotna\nSystem antyplagiatowy: ");
-                string data_ap = SendMessage(SystemAntyplagiatowyIpAddress, 11000, data_plik, true);
-                
-                SendMessage(UserIpAddress, 11000, Encoding.ASCII.GetBytes("Informacja zwrotna\nSystem antyplagiatowy: " + data_ap), false);
+                bool result = ReceiveFile();
 
-                if (data_ap.IndexOf("ok") > -1)
+                if (result)
                 {
-                    Console.WriteLine("Wysyłanie pliku do promotora");
-                    //string data_pr = ();
-                    string data_pr = SendMessage(PromotorIpAddress, 11000, data_plik, true);
-                    SendMessage(UserIpAddress, 11001, Encoding.ASCII.GetBytes(data_pr), false);
+                    Console.WriteLine("Wysyłanie pliku do systemu antyplagiatowego");
+                    string data_ap = SendMessage(SystemAntyplagiatowyIpAddress, 11000, data_plik, true);
+
+                    SendMessage(UserIpAddress, 11000, Encoding.ASCII.GetBytes("Informacja zwrotna\nSystem antyplagiatowy: " + data_ap), false);
+
+                    if (data_ap.IndexOf("ok") > -1)
+                    {
+                        Console.WriteLine("Wysyłanie pliku do promotora");
+                        string data_pr = SendMessage(PromotorIpAddress, 11000, data_plik, true);
+                        SendMessage(UserIpAddress, 11001, Encoding.ASCII.GetBytes(data_pr), false);
+                    }
                 }
             }
 			Console.ReadLine();
             return 0;
         }
-        public static bool ReceiveFile(IPAddress ipAddress)
+        public static bool ReceiveFile()
         {
             bool result = false;
             try
             {
-                IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
                 try
                 {
-                    Socket listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                    listener.Bind(localEndPoint);
-                    listener.Listen(10);
-
                     Console.WriteLine("Waiting for a connection...\n");
                     Socket handler = listener.Accept();
 

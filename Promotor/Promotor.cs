@@ -8,24 +8,27 @@ namespace Promotor
     public class SocketListener
     {
         public static IPAddress localIpAddress = IPAddress.Parse("127.0.0.4");
+        public static IPEndPoint localEndPoint = new IPEndPoint(localIpAddress, 11000);
+        public static Socket listener = new Socket(localIpAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         public static byte[] data_plik = new byte[160];
         public static int Main(String[] args)
         {
-            ReceiveFile(localIpAddress);
+            listener.Bind(localEndPoint);
+            listener.Listen(10);
+
+            for (int i = 0; i < 10; i++)
+            {
+                ReceiveFile();
+            }
             return 0;
         }
 
-        public static void ReceiveFile(IPAddress ipAddress)
+        public static void ReceiveFile()
         {
             try
             {
-                IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
                 try
                 {
-                    Socket listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                    listener.Bind(localEndPoint);
-                    listener.Listen(10);
-
                     Console.WriteLine("Waiting for a connection...\n");
                     Socket handler = listener.Accept();
 
@@ -38,7 +41,8 @@ namespace Promotor
                         Random rnd = new Random();
                         int ocena = rnd.Next(2, 5);
 						int ocenaRecenzent = rnd.Next(3, 5);
-                        handler.Send(Encoding.ASCII.GetBytes(ocena.ToString()+ocenaRecenzent.ToString()));
+                        handler.Send(Encoding.ASCII.GetBytes("Ocena promotora: "+ocena.ToString()+"\n"+
+                                                             "Ocena recenzenta: "+ocenaRecenzent.ToString()));
                     }
                     catch (Exception ex)
                     {

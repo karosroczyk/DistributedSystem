@@ -9,6 +9,7 @@ namespace User
     class Program
     {
         public static IPAddress localIpAddress = IPAddress.Parse("127.0.0.1");
+        //public static IPEndPoint localEndPoint = new IPEndPoint(localIpAddress, port);
         public static IPAddress WDIpAddress = IPAddress.Parse("127.0.0.2");
         public static string fileName = Path.GetFullPath("plik.txt");
         public static int Main(String[] args)

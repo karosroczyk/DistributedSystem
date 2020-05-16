@@ -20,3 +20,14 @@ C:\Users\Lenovo\Desktop\Magisterka\Systemy rozproszone\Systemy_rozproszone\User\
 C:\Users\Lenovo\Desktop\Magisterka\Systemy rozproszone\Systemy_rozproszone\User\obj\Debug\netcoreapp2.2\User.AssemblyInfo.cs
 C:\Users\Lenovo\Desktop\Magisterka\Systemy rozproszone\Systemy_rozproszone\User\obj\Debug\netcoreapp2.2\User.dll
 C:\Users\Lenovo\Desktop\Magisterka\Systemy rozproszone\Systemy_rozproszone\User\obj\Debug\netcoreapp2.2\User.pdb
+C:\Users\Lenovo\Desktop\Magisterka\Systemy_rozproszone\User\bin\Debug\netcoreapp2.2\User.deps.json
+C:\Users\Lenovo\Desktop\Magisterka\Systemy_rozproszone\User\bin\Debug\netcoreapp2.2\User.runtimeconfig.json
+C:\Users\Lenovo\Desktop\Magisterka\Systemy_rozproszone\User\bin\Debug\netcoreapp2.2\User.runtimeconfig.dev.json
+C:\Users\Lenovo\Desktop\Magisterka\Systemy_rozproszone\User\bin\Debug\netcoreapp2.2\User.dll
+C:\Users\Lenovo\Desktop\Magisterka\Systemy_rozproszone\User\bin\Debug\netcoreapp2.2\User.pdb
+C:\Users\Lenovo\Desktop\Magisterka\Systemy_rozproszone\User\obj\Debug\netcoreapp2.2\User.csprojAssemblyReference.cache
+C:\Users\Lenovo\Desktop\Magisterka\Systemy_rozproszone\User\obj\Debug\netcoreapp2.2\User.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Desktop\Magisterka\Systemy_rozproszone\User\obj\Debug\netcoreapp2.2\User.AssemblyInfoInputs.cache
+C:\Users\Lenovo\Desktop\Magisterka\Systemy_rozproszone\User\obj\Debug\netcoreapp2.2\User.AssemblyInfo.cs
+C:\Users\Lenovo\Desktop\Magisterka\Systemy_rozproszone\User\obj\Debug\netcoreapp2.2\User.dll
+C:\Users\Lenovo\Desktop\Magisterka\Systemy_rozproszone\User\obj\Debug\netcoreapp2.2\User.pdb
