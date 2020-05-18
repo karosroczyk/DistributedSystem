@@ -41,8 +41,7 @@ namespace Promotor
                         Random rnd = new Random();
                         int ocena = rnd.Next(2, 5);
 						int ocenaRecenzent = rnd.Next(3, 5);
-                        handler.Send(Encoding.ASCII.GetBytes("Ocena promotora: "+ocena.ToString()+"\n"+
-                                                             "Ocena recenzenta: "+ocenaRecenzent.ToString()));
+                        handler.Send(Encoding.ASCII.GetBytes(ocena.ToString()+ocenaRecenzent.ToString()));
                     }
                     catch (Exception ex)
                     {

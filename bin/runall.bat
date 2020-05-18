@@ -10,4 +10,6 @@ START C:\Users\patry\OneDrive\Pulpit\rozproszone\Systemy_rozproszone\bin\Antypla
 C:\Windows\Microsoft.NET\Framework\v2.0.50727\csc.exe -nologo C:\Users\patry\OneDrive\Pulpit\rozproszone\Systemy_rozproszone\Wirtualny_dziekanat\Dziekanat.cs
 START C:\Users\patry\OneDrive\Pulpit\rozproszone\Systemy_rozproszone\bin\Dziekanat.exe
 
+START C:\Users\patry\OneDrive\Pulpit\rozproszone\Systemy_rozproszone\Apka\AplikacjaOkienkowa\bin\Debug\AplikacjaOkienkowa.exe
+
 PAUSE

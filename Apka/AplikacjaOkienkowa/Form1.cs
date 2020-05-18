@@ -15,14 +15,47 @@ namespace AplikacjaOkienkowa
 {
     public partial class Form1 : Form
     {
+		
+		private static readonly Socket ClientSocket = new Socket
+            (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+		private static readonly Socket ClientSocket2 = new Socket
+            (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-        public static IPAddress localIpAddress = IPAddress.Parse("127.0.0.1");
-        public static IPAddress WDIpAddress = IPAddress.Parse("127.0.0.2");
+
+        private const int PORT = 100;
+		private const int PORT2 = 103;
 
         public Form1()
         {
+			ConnectToServer();
             InitializeComponent();
         }
+		
+		
+        private static void ConnectToServer()
+        {
+            int attempts = 0;
+
+            while (!ClientSocket.Connected)
+            {
+                try
+                {
+                    attempts++;
+                    //Console.WriteLine("Connection attempt " + attempts);
+                    // Change IPAddress.Loopback to a remote IP to connect to a remote host.
+                    ClientSocket.Connect(IPAddress.Loopback, PORT);
+					ClientSocket2.Connect(IPAddress.Loopback, PORT2);
+                }
+                catch (SocketException) 
+                {
+                    // Console.Clear();
+                }
+            }
+
+            //Console.Clear();
+            //Console.WriteLine("Connected");
+        }
+
 
         private void PictureBox1_Click(object sender, EventArgs e)
         {
@@ -70,22 +103,76 @@ namespace AplikacjaOkienkowa
                 label2.Text = "przesłana";
                 label2.ForeColor = Color.Lime;
                 label4.Text = DateTime.Now.ToString("dd/MM/yyyy"); ;
-                SendMessageWithFile(WDIpAddress, openFileDialog1.FileName);
 
-                //tu otzymujef
-                //ReceiveEcho(localIpAddress, 11000);
-
-                string score = ReceiveEcho(localIpAddress, 11001);
-                label7.Text = score.Substring(0, 1);
-                if (score.Substring(0, 1) == '2'.ToString())
-                    label7.ForeColor = Color.Red;
-                else
-                    label7.ForeColor = Color.Lime;
-
-                label8.Text = score.Substring(1, 1);
-                label8.ForeColor = Color.Lime;
+				string scores = SendRequest();
+				setLabels(scores);
+                string ok = SendRequest2();
+                label10.Text = ok;
             }
         }
+
+        private static string SendRequest()
+        {
+            SendString("praca");
+			return ReceiveResponse();
+		
+        }
+
+        private static string SendRequest2()
+        {
+            SendString2("cokolwiek"); //mulServ
+            return ReceiveResponse2();
+        }
+        /// <summary>
+        /// Sends a string to the server with ASCII encoding.
+        /// </summary>
+        private static void SendString(string text)
+        {
+            byte[] buffer = Encoding.ASCII.GetBytes(text);
+			ClientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
+        }
+		 private static void SendString2(string text)
+        {
+            byte[] buffer = Encoding.ASCII.GetBytes(text);
+			ClientSocket2.Send(buffer, 0, buffer.Length, SocketFlags.None);
+        }
+
+        private static string ReceiveResponse() //promotor
+        {
+            byte[] buffer = new byte[2048];
+            int received = ClientSocket.Receive(buffer, SocketFlags.None);
+            byte[] data = new byte[received];
+            Array.Copy(buffer, data, received);
+            string score = Encoding.ASCII.GetString(data);
+            return score;
+            //setLabels(score);
+      
+        }
+
+        private void setLabels(string score)
+        {
+            label7.Text = score.Substring(0, 1);
+            if (score.Substring(0, 1) == '2'.ToString())
+                label7.ForeColor = Color.Red;
+            else
+                label7.ForeColor = Color.Lime;
+
+            label8.Text = score.Substring(1, 1);
+            label8.ForeColor = Color.Lime;
+        }
+
+		private static string ReceiveResponse2()
+        {
+            byte[] buffer = new byte[2048];
+            int received = ClientSocket2.Receive(buffer, SocketFlags.None);
+            byte[] data = new byte[received];
+            Array.Copy(buffer, data, received);
+            return Encoding.ASCII.GetString(data);
+            //Console.WriteLine(text);
+		
+        }
+
+
 
         private void Label2_Click(object sender, EventArgs e)
         {
@@ -112,88 +199,7 @@ namespace AplikacjaOkienkowa
 
         }
 
-        public static void SendMessageWithFile(IPAddress ipAddress, string fileName)
-        {
-            try
-            {
-                IPEndPoint remoteEndPoint = new IPEndPoint(ipAddress, 11000);
-                try
-                {
-                    Socket sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                    sender.Connect(remoteEndPoint);
-
-                    // File sender    
-                    Console.WriteLine("Sending file");
-                    sender.SendFile(fileName, null, null, TransmitFileOptions.UseDefaultWorkerThread);
-
-                    // Echo receiver 
-                    byte[] bytes = new byte[1024];
-                    int bytesRec = sender.Receive(bytes);
-                    string data = Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                    Console.WriteLine(data + "\n");
-
-                    sender.Shutdown(SocketShutdown.Both);
-                    sender.Close();
-                }
-                catch (ArgumentNullException ane)
-                {
-                    Console.WriteLine(ane.ToString());
-                }
-                catch (SocketException ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                }
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-        }
-
-        public static string ReceiveEcho(IPAddress ipAddress, int port)
-        {
-            try
-            {
-                IPEndPoint localEndPoint = new IPEndPoint(ipAddress, port);
-                try
-                {
-                    Socket listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                    listener.Bind(localEndPoint);
-                    listener.Listen(10);
-                    Socket handler = listener.Accept();
-
-                    // File receiver
-                    try
-                    {
-                        byte[] buffer = new byte[160];
-                        int received = handler.Receive(buffer);
-                        string data_plik = Encoding.ASCII.GetString(buffer, 0, received);
-                        return data_plik;
-                        //Console.WriteLine(data_plik);
-                    }
-                    catch (Exception ex)
-                    {
-                        handler.Send(Encoding.ASCII.GetBytes("Result: bad"));
-                        Console.WriteLine(ex.ToString());
-                    }
-
-                    handler.Shutdown(SocketShutdown.Both);
-                    handler.Close();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.ToString());
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-
-            return "---";
-        }
-
+      
         private void Label4_Click(object sender, EventArgs e)
         {
 

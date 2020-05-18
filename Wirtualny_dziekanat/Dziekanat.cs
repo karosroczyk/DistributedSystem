@@ -12,7 +12,9 @@ namespace Wirtualny_dziekanat
         public static IPAddress SystemAntyplagiatowyIpAddress = IPAddress.Parse("127.0.0.3");
         public static IPAddress PromotorIpAddress = IPAddress.Parse("127.0.0.4");
         public static IPEndPoint localEndPoint = new IPEndPoint(localIpAddress, 11000);
+		
         public static Socket listener = new Socket(localIpAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+		
         public static byte[] data_plik = new byte[160];
         public static int Main(String[] args)
         {
@@ -46,8 +48,6 @@ namespace Wirtualny_dziekanat
             bool result = false;
             try
             {
-                try
-                {
                     Console.WriteLine("Waiting for a connection...\n");
                     Socket handler = listener.Accept();
 
@@ -68,11 +68,7 @@ namespace Wirtualny_dziekanat
 
                     handler.Shutdown(SocketShutdown.Both);
                     handler.Close();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.ToString());
-                }
+                
             }
             catch (Exception e)
             {
@@ -80,6 +76,7 @@ namespace Wirtualny_dziekanat
             }
             return result;
         }  
+		
         public static string SendMessage(IPAddress ipAddress, int port, byte[] message, bool echo)
         {
             string data = null;

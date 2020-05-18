@@ -42,8 +42,11 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -86,7 +89,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Ebrima", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(474, 140);
+            this.label2.Location = new System.Drawing.Point(465, 140);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(106, 23);
             this.label2.TabIndex = 3;
@@ -108,7 +111,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Ebrima", 10F);
-            this.label4.Location = new System.Drawing.Point(474, 193);
+            this.label4.Location = new System.Drawing.Point(465, 193);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(68, 23);
             this.label4.TabIndex = 5;
@@ -174,8 +177,10 @@
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.Honeydew;
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Font = new System.Drawing.Font("Ebrima", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.groupBox2.Location = new System.Drawing.Point(339, 276);
+            this.groupBox2.Location = new System.Drawing.Point(369, 276);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(253, 175);
             this.groupBox2.TabIndex = 7;
@@ -183,13 +188,30 @@
             this.groupBox2.Text = "Wskaźniki podobieństwa";
             this.groupBox2.Enter += new System.EventHandler(this.GroupBox2_Enter);
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Ebrima", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label9.Location = new System.Drawing.Point(77, 74);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(0, 35);
+            this.label9.TabIndex = 0;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Ebrima", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label10.Location = new System.Drawing.Point(53, 74);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(0, 35);
+            this.label10.TabIndex = 1;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSeaGreen;
             this.ClientSize = new System.Drawing.Size(667, 499);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -197,12 +219,15 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.groupBox2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,6 +248,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
     }
 }
 
