@@ -16,9 +16,9 @@ namespace AplikacjaOkienkowa
     public partial class Form1 : Form
     {
 		
-		private static readonly Socket ClientSocket = new Socket
-            (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-		private static readonly Socket ClientSocket2 = new Socket
+		private static readonly Socket PromotorSocket = new Socket
+            (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp); 
+		private static readonly Socket AntyplagiatSocket = new Socket
             (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
 
@@ -36,15 +36,13 @@ namespace AplikacjaOkienkowa
         {
             int attempts = 0;
 
-            while (!ClientSocket.Connected)
+            while (!PromotorSocket.Connected || !AntyplagiatSocket.Connected)
             {
                 try
                 {
                     attempts++;
-                    //Console.WriteLine("Connection attempt " + attempts);
-                    // Change IPAddress.Loopback to a remote IP to connect to a remote host.
-                    ClientSocket.Connect(IPAddress.Loopback, PORT);
-					ClientSocket2.Connect(IPAddress.Loopback, PORT2);
+                    PromotorSocket.Connect(IPAddress.Loopback, PORT);
+                    AntyplagiatSocket.Connect(IPAddress.Loopback, PORT2);
                 }
                 catch (SocketException) 
                 {
@@ -52,8 +50,6 @@ namespace AplikacjaOkienkowa
                 }
             }
 
-            //Console.Clear();
-            //Console.WriteLine("Connected");
         }
 
 
@@ -104,49 +100,41 @@ namespace AplikacjaOkienkowa
                 label2.ForeColor = Color.Lime;
                 label4.Text = DateTime.Now.ToString("dd/MM/yyyy"); ;
 
-				string scores = SendRequest();
+				string scores = SendRequestToPromotor(openFileDialog1);
 				setLabels(scores);
-                string ok = SendRequest2();
+                string ok = SendRequestToAntyplagiat(openFileDialog1);
                 label10.Text = ok;
             }
         }
 
-        private static string SendRequest()
+        private static string SendRequestToPromotor(OpenFileDialog ofd)
         {
-            SendString("praca");
-			return ReceiveResponse();
+            SendString(PromotorSocket, ofd.FileName);
+			return ReceiveResponse(PromotorSocket);
 		
         }
 
-        private static string SendRequest2()
+        private static string SendRequestToAntyplagiat(OpenFileDialog ofd)
         {
-            SendString2("cokolwiek"); //mulServ
-            return ReceiveResponse2();
-        }
-        /// <summary>
-        /// Sends a string to the server with ASCII encoding.
-        /// </summary>
-        private static void SendString(string text)
-        {
-            byte[] buffer = Encoding.ASCII.GetBytes(text);
-			ClientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
-        }
-		 private static void SendString2(string text)
-        {
-            byte[] buffer = Encoding.ASCII.GetBytes(text);
-			ClientSocket2.Send(buffer, 0, buffer.Length, SocketFlags.None);
+            SendString(AntyplagiatSocket, ofd.FileName);
+            return ReceiveResponse(AntyplagiatSocket);
         }
 
-        private static string ReceiveResponse() //promotor
+        private static void SendString(Socket socket, string text)
+        {
+            socket.SendFile(text, null, null, TransmitFileOptions.UseDefaultWorkerThread);
+            //byte[] buffer = Encoding.ASCII.GetBytes(text);
+            //socket.Send(buffer, 0, buffer.Length, SocketFlags.None);
+        }
+
+        private static string ReceiveResponse(Socket socket)
         {
             byte[] buffer = new byte[2048];
-            int received = ClientSocket.Receive(buffer, SocketFlags.None);
+            int received = socket.Receive(buffer, SocketFlags.None);
             byte[] data = new byte[received];
             Array.Copy(buffer, data, received);
             string score = Encoding.ASCII.GetString(data);
             return score;
-            //setLabels(score);
-      
         }
 
         private void setLabels(string score)
@@ -160,19 +148,6 @@ namespace AplikacjaOkienkowa
             label8.Text = score.Substring(1, 1);
             label8.ForeColor = Color.Lime;
         }
-
-		private static string ReceiveResponse2()
-        {
-            byte[] buffer = new byte[2048];
-            int received = ClientSocket2.Receive(buffer, SocketFlags.None);
-            byte[] data = new byte[received];
-            Array.Copy(buffer, data, received);
-            return Encoding.ASCII.GetString(data);
-            //Console.WriteLine(text);
-		
-        }
-
-
 
         private void Label2_Click(object sender, EventArgs e)
         {
@@ -199,7 +174,6 @@ namespace AplikacjaOkienkowa
 
         }
 
-      
         private void Label4_Click(object sender, EventArgs e)
         {
 
