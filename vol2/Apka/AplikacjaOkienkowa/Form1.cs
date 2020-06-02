@@ -100,10 +100,34 @@ namespace AplikacjaOkienkowa
                 label2.ForeColor = Color.Lime;
                 label4.Text = DateTime.Now.ToString("dd/MM/yyyy"); ;
 
-				string scores = SendRequestToPromotor(openFileDialog1);
+                //tu zmiana
+                string antyplagiatResponse = SendRequestToAntyplagiat(openFileDialog1);
+                
+                string scores = SendRequestToPromotor(openFileDialog1);
+                if (antyplagiatResponse != "Result: ok")
+                {
+                    label10.Text = "WYKRYTO\n PLAGIAT";
+                    label10.ForeColor = Color.Red;
+
+                    label8.Text = "-";
+                    label8.ForeColor = Color.Black;
+                    label7.Text = "-";
+                    label7.ForeColor = Color.Black;
+                }
+                else
+                {
+                    label10.Text = "OK";
+                    setLabels(scores);
+                }
+                
+
+                /*
+                string scores = SendRequestToPromotor(openFileDialog1);
 				setLabels(scores);
                 string ok = SendRequestToAntyplagiat(openFileDialog1);
                 label10.Text = ok;
+
+                */
             }
         }
 

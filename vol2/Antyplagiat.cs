@@ -82,7 +82,11 @@ namespace MultiServer
             Array.Copy(buffer, recBuf, received);
             string text = Encoding.ASCII.GetString(recBuf);
             Console.WriteLine("Received Text: " + text);
-			current.Send(Encoding.ASCII.GetBytes("Result: ok"));
+			Random rnd = new Random();
+			if (rnd.Next(1, 5) == 1)
+				current.Send(Encoding.ASCII.GetBytes("Result: not ok"));
+			else 
+				current.Send(Encoding.ASCII.GetBytes("Result: ok"));
 			
             current.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.None, ReceiveCallback, current);
         }
