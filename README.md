@@ -1,16 +1,14 @@
 # Systemy_rozproszone
 
+vol2/Antyplagiat.exe - aplikacja systemu antyplagiatowego
+vol2/Promotor.exe - aplikacja systemu promotora
+vol2/Apka/AplikacjaOkienkowa/bin/Debug/AplikacjaOkienkowa.exe - aplikacja Wirtualnego dziekanatu
 
-URUCHOMIENIE VOL2:
-1. Odpalamy plik: 
-a) runAll.bat, gdy chcemy odpalić jedną aplikację
-b) runMultiple.bat, gdy chcemy odpalić dwie instancje aplikacji.
-Oba te .bat uruchamiają także aplikacje promotora i antyplagiatu.
+Można uruchomić pliki wykonywalne lub uruchomić plik wsadowy, który uruchomi wszystkie aplikacje.
+Należy jednak pamiętać o zmianie ścieżek w plikach wsadowych.
+runAll.bat odpala aplikacje promotora, antyplagiatu i WD, runMultiple.bat to co runAll.bat + dodatkową instancję WD.
 
 
-ODPALANIE PREVIOUS:
-1. Wejść w cmd do ścieżki: System_antyplagiatowy\bin\Debug\netcoreapp2.2
-2. Puścić komendę: dotnet System_antyplagiatowy.dll (Powinno pojawić się w konsoli "Waiting for server to connect...")
-3. To samo dla: Promotor.dll i Wirtualny_dziekanat.dll
-4. Wejść w cmd do ścieżki: User\bin\Debug\netcoreapp2.2
-5. Puścić komendę: dotnet User.dll
+Obsługa aplikacji jest dość intuicyjna:
+- w lewym górnym rogu można wgrać zdjęcie do dyplomu
+- w prawym górnym rogu wybieramy pracę dyplomową w formacie .txt i czekamy na odpowiedź antyplagiatu i promotora.

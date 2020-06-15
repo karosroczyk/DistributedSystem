@@ -117,6 +117,7 @@ namespace AplikacjaOkienkowa
                 else
                 {
                     label10.Text = "OK";
+                    label10.ForeColor = Color.Black;
                     setLabels(scores);
                 }
                 
